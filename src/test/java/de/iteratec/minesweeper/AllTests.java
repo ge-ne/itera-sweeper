@@ -26,7 +26,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import de.iteratec.minesweeper.board.RandomBoardTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({GameTest.class, RandomBoardTest.class})
+@SuiteClasses({GameSeriesTest.class, GameTest.class, RandomBoardTest.class})
 public class AllTests {
 
 }
