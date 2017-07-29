@@ -161,7 +161,16 @@ public class BaseBoard implements Serializable, ModifiableBoard {
         mark[x][y] = State.USED;
         free--;
 
-        // TODO
+        if (hint[x][y] == 0) {
+            set(x - 1, y - 1);
+            set(x - 1, y);
+            set(x - 1, y + 1);
+            set(x, y - 1);
+            set(x, y + 1);
+            set(x + 1, y - 1);
+            set(x + 1, y);
+            set(x + 1, y + 1);
+        }
 
         return true;
     }
