@@ -23,18 +23,18 @@ import de.iteratec.minesweeper.api.Board;
 import de.iteratec.minesweeper.api.Move;
 
 /**
- * TODO gene: missing JavaDoc.
+ * This interface describes a callback for the move event.
  *
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */
 public interface MoveObserver {
 
     /**
-     * TODO gene: missing JavaDoc
+     * This is the callback method for the observed event.
      *
-     * @param numberOfMoves
-     * @param board
-     * @param move
+     * @param numberOfMoves the number of moves
+     * @param board the board
+     * @param move the current move
      */
     void observeMove(int numberOfMoves, Board board, Move move);
 }
