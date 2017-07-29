@@ -19,18 +19,27 @@
 
 package de.iteratec.minesweeper.board;
 
+import java.io.Serializable;
+
 /**
  * This class contains a base implementation of a Minesweeper board.
  *
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */
-public class BaseBoard implements ModifiableBoard {
+public class BaseBoard implements Serializable, ModifiableBoard {
 
-    private static final byte BOMB = 2;
+    /**
+     * The field <tt>serialVersionUID</tt> contains the version number for
+     * serialization.
+     */
+    private static final long serialVersionUID = 1L;
 
-    private static final byte USED = 1;
-
-    private static final byte FREE = 0;
+    /**
+     * This enumeration contains the states of a cell.
+     */
+    public enum State {
+        BOMB, USED, FREE
+    }
 
     private static final Sense[] tip = {Sense.SENSE_0, Sense.SENSE_1,
             Sense.SENSE_2, Sense.SENSE_3, Sense.SENSE_4, Sense.SENSE_5,
@@ -50,7 +59,7 @@ public class BaseBoard implements ModifiableBoard {
 
     private byte[][] hint;
 
-    private byte[][] mark;
+    private State[][] mark;
 
     /**
      * Creates a new object.
@@ -72,11 +81,11 @@ public class BaseBoard implements ModifiableBoard {
         this.width = width;
         this.height = height;
         hint = new byte[width][height];
-        mark = new byte[width][height];
+        mark = new State[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 hint[x][y] = 0;
-                mark[x][y] = FREE;
+                mark[x][y] = State.FREE;
             }
         }
         free = width * height;
@@ -95,11 +104,12 @@ public class BaseBoard implements ModifiableBoard {
         }
         switch (mark[x][y]) {
             case BOMB:
-                return Sense.BOMB;
-             case FREE:
-                 return Sense.UNKNOWN;
-             default:
-                 return tip[hint[x][y]];
+            case FREE:
+                return Sense.UNKNOWN;
+            case USED:
+                return tip[hint[x][y]];
+            default:
+                throw new IllegalStateException("This can not happen");
         }
     }
 
@@ -144,10 +154,31 @@ public class BaseBoard implements ModifiableBoard {
     @Override
     public boolean set(int x, int y) {
 
-        if (x < 0 || x >= width || y < 0 || y >= height || mark[x][y] != FREE) {
+        if (x < 0 || x >= width || y < 0 || y >= height
+                || mark[x][y] != State.FREE) {
             return false;
         }
-        mark[x][y] = USED;
+        mark[x][y] = State.USED;
+        free--;
+
+        // TODO
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see de.iteratec.minesweeper.board.ModifiableBoard#setBomb(int, int)
+     */
+    @Override
+    public boolean setBomb(int x, int y) {
+
+        if (x < 0 || x >= width || y < 0 || y >= height
+                || mark[x][y] != State.FREE) {
+            return false;
+        }
+        mark[x][y] = State.BOMB;
         free--;
 
         if (x > 0) {
@@ -176,6 +207,38 @@ public class BaseBoard implements ModifiableBoard {
         }
 
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+
+        StringBuilder buffer = new StringBuilder();
+        for (int y = 0; y < height; y++) {
+            buffer.append('|');
+            for (int x = 0; x < width; x++) {
+                switch (mark[x][y]) {
+                    case BOMB:
+                        buffer.append('*');
+                        break;
+                    case FREE:
+                        buffer.append(' ');
+                        break;
+                    case USED:
+                        buffer.append('.');
+                        break;
+                    default:
+                        throw new IllegalStateException("This can not happen");
+                }
+            }
+            buffer.append("|\n");
+        }
+
+        return buffer.toString();
     }
 
 }
