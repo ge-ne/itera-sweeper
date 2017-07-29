@@ -128,6 +128,17 @@ public class RandomBoardTest {
      * A cell outside the board is reported as OUTSIDE.
      */
     @Test
+    public void testGet30() {
+
+        RandomBoard board = new RandomBoard(1, 1);
+        board.set(0, 0);
+        assertEquals(Sense.SENSE_0, board.get(0, 0));
+    }
+
+    /**
+     * A cell outside the board is reported as OUTSIDE.
+     */
+    @Test
     public void testGet1() {
 
         RandomBoard board = new RandomBoard(1, 1);
@@ -198,6 +209,35 @@ public class RandomBoardTest {
     public void testGetHeight1() {
 
         assertEquals(3, new RandomBoard(2, 3, 0).getHeight());
+    }
+
+    /**
+     * The string representation can be retrieved.
+     */
+    @Test
+    public void testToString1() {
+
+        assertEquals("| |\n", new RandomBoard(1, 1, 0).toString());
+    }
+
+    /**
+     * The string representation can be retrieved.
+     */
+    @Test
+    public void testToString2() {
+
+        RandomBoard board = new RandomBoard(1, 1, 0);
+        board.set(0, 0);
+        assertEquals("|.|\n", board.toString());
+    }
+
+    /**
+     * The string representation can be retrieved.
+     */
+    @Test
+    public void testToString3() {
+
+        assertEquals("|*|\n", new RandomBoard(1, 1, 1).toString());
     }
 
 }
