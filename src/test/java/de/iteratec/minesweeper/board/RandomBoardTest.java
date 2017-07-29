@@ -240,4 +240,17 @@ public class RandomBoardTest {
         assertEquals("|*|\n", new RandomBoard(1, 1, 1).toString());
     }
 
+    /**
+     * The same seed leads to the same board.
+     */
+    @Test
+    public void testStaticRandom1() {
+
+        RandomBoard.seed(1234567890L);
+        RandomBoard b1 = new RandomBoard();
+        RandomBoard.seed(1234567890L);
+        RandomBoard b2 = new RandomBoard();
+        assertEquals(b1.toString(), b2.toString());
+    }
+
 }
