@@ -112,16 +112,16 @@ public class RandomBoardTest {
     }
 
     /**
-     * Width and height are in the range [3,24].
+     * Width and height are in the range [3,99].
      */
     @Test
     public void test30() {
 
         RandomBoard board = new RandomBoard();
         assertTrue(board.getWidth() >= 3);
-        assertTrue(board.getWidth() <= 24);
+        assertTrue(board.getWidth() <= 99);
         assertTrue(board.getHeight() >= 3);
-        assertTrue(board.getHeight() <= 24);
+        assertTrue(board.getHeight() <= 99);
     }
 
     /**
