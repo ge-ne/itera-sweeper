@@ -27,6 +27,12 @@ package de.iteratec.minesweeper.board;
 public class RandomBoard extends BaseBoard {
 
     /**
+     * The field <tt>serialVersionUID</tt> contains the version number for
+     * serialization.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Creates a new object and fill 10% of the board with bombs. The width is
      * randomly selected between 3 and 24. The height is randomly selected
      * between 3 and 24.
