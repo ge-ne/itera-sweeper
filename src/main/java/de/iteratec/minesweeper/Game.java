@@ -88,7 +88,7 @@ public class Game {
     }
 
     /**
-     * Getter for won...
+     * Getter for won.
      *
      * @return the won
      */
