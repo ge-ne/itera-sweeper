@@ -103,9 +103,9 @@ public class Game {
      *
      * @param player the player
      *
-     * @return
+     * @return <code>true</code> iff the game has been won
      */
-    public boolean play(Player player) {
+    public Game play(Player player) {
 
         if (player == null) {
             throw new NullPointerException();
@@ -123,18 +123,17 @@ public class Game {
                 }
                 if (move == null || !board.set(move[0], move[1])) {
                     won = false;
-                    return false;
+                    return this;
                 }
             }
 
             won = true;
-            return true;
         } catch (Exception e) {
             won = false;
-            return false;
         } finally {
             player.terminateGame();
         }
+        return this;
     }
 
     /**
