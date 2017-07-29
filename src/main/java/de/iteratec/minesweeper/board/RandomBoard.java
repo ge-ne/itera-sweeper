@@ -19,12 +19,31 @@
 
 package de.iteratec.minesweeper.board;
 
+import java.util.Random;
+
 /**
  * This class is a board which is ranomly filled with bombs.
  *
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */
 public class RandomBoard extends BaseBoard {
+
+    /**
+     * The field <tt>random</tt> contains the the random number generator to be
+     * used.
+     */
+    private static Random random = new Random();
+
+    /**
+     * Reset the random number generator to one with the given seed value. Thus
+     * it is possible to achieve a reproducible random number sequence.
+     *
+     * @param seed the seed
+     */
+    public static void seed(long seed) {
+
+        random = new Random(seed);
+    }
 
     /**
      * The field <tt>serialVersionUID</tt> contains the version number for
@@ -39,8 +58,7 @@ public class RandomBoard extends BaseBoard {
      */
     public RandomBoard() {
 
-        this(3 + (int) Math.round(Math.random() * 21), //
-            3 + (int) Math.round(Math.random() * 21));
+        this(3 + random.nextInt(21), 3 + random.nextInt(21));
     }
 
     /**
@@ -85,9 +103,7 @@ public class RandomBoard extends BaseBoard {
             throw new IllegalArgumentException("bombs");
         }
         while (bombs > 0) {
-            int x = (int) (Math.random() * width);
-            int y = (int) (Math.random() * height);
-            if (setBomb(x, y)) {
+            if (setBomb(random.nextInt(width), random.nextInt(height))) {
                 bombs--;
             }
         }
