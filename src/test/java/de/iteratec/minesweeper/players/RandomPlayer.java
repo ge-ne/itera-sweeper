@@ -19,6 +19,8 @@
 
 package de.iteratec.minesweeper.players;
 
+import java.util.Random;
+
 import de.iteratec.minesweeper.api.Board;
 import de.iteratec.minesweeper.api.Player;
 
@@ -30,6 +32,28 @@ import de.iteratec.minesweeper.api.Player;
 public class RandomPlayer implements Player {
 
     /**
+     * The field <tt>random</tt> contains the random number generator.
+     */
+    private Random random = new Random();
+
+    /**
+     * Creates a new object.
+     *
+     */
+    public RandomPlayer() {
+    }
+
+    /**
+     * Creates a new object.
+     *
+     * @param seed the seed for the random number generator
+     */
+    public RandomPlayer(long seed) {
+
+        random = new Random(seed);
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @see de.iteratec.minesweeper.api.Player#move(de.iteratec.minesweeper.api.Board)
@@ -37,8 +61,7 @@ public class RandomPlayer implements Player {
     @Override
     public int[] move(Board board) {
 
-        return new int[]{(int) (Math.random() * board.getWidth()),
-                (int) (Math.random() * board.getHeight())};
+        return new int[]{random.nextInt(board.getWidth()),
+                random.nextInt(board.getHeight())};
     }
-
 }
