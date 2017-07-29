@@ -98,7 +98,7 @@ public class Game {
     }
 
     /**
-     * Run the game un til the result has been fixed.
+     * Run the game until the result has been fixed.
      *
      * @param player the player
      *
