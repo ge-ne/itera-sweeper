@@ -20,16 +20,16 @@
 package de.iteratec.minesweeper.board;
 
 /**
- * TODO gene: missing JavaDoc.
+ * This interface describes the capability to create a board instance.
  *
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */
 public interface BoardFactory {
 
     /**
-     * TODO gene: missing JavaDoc
+     * Factory method for a board.
      *
-     * @return
+     * @return the new board
      */
     ModifiableBoard createBoard();
 }
