@@ -17,27 +17,13 @@
  *
  */
 
-package de.iteratec.minesweeper.players;
-
-import de.iteratec.minesweeper.api.Board;
-import de.iteratec.minesweeper.api.Player;
+package de.iteratec.minesweeper;
 
 /**
- * This Minesweeper player always throws an exception.
+ * TODO gene: missing JavaDoc.
  *
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */
-public class EPlayer implements Player {
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see de.iteratec.minesweeper.api.Player#move(de.iteratec.minesweeper.api.Board)
-     */
-    @Override
-    public int[] move(Board board) {
-
-        throw new RuntimeException();
-    }
+public class GameSeries {
 
 }

@@ -20,7 +20,6 @@
 package de.iteratec.minesweeper;
 
 import de.iteratec.minesweeper.api.Board;
-import de.iteratec.minesweeper.api.Move;
 import de.iteratec.minesweeper.api.Player;
 import de.iteratec.minesweeper.board.BoardFactory;
 import de.iteratec.minesweeper.board.ModifiableBoard;
@@ -115,12 +114,12 @@ public class Game {
         player.startGame(board);
         try {
             while (!board.isCompleted()) {
-                Move move = player.move(board);
+                int[] move = player.move(board);
                 moves++;
                 if (moveObserver != null) {
-                    moveObserver.observeMove(moves, board, move);
+                    moveObserver.observeMove(moves, board, move[0], move[1]);
                 }
-                if (move == null || !board.set(move.getX(), move.getY())) {
+                if (move == null || !board.set(move[0], move[1])) {
                     won = false;
                     return false;
                 }

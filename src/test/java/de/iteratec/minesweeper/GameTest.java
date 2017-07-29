@@ -100,7 +100,7 @@ public class GameTest {
     public void test11() {
 
         int[] count = {0};
-        Game game = new Game().setMoveObserver((a, b, c) -> count[0]++);
+        Game game = new Game().setMoveObserver((a, b, c, d) -> count[0]++);
         game.play(new RandomPlayer());
         assertEquals(game.getMoves(), count[0]);
     }
@@ -112,7 +112,7 @@ public class GameTest {
     public void test20() {
 
         int[] count = {0};
-        Game game = new Game().setMoveObserver((a, b, c) -> count[0]++);
+        Game game = new Game().setMoveObserver((a, b, c, d) -> count[0]++);
         game.play(new RandomPlayer());
         assertEquals(game.getMoves(), count[0]);
     }

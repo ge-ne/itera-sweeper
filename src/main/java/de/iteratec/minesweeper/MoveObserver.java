@@ -20,7 +20,6 @@
 package de.iteratec.minesweeper;
 
 import de.iteratec.minesweeper.api.Board;
-import de.iteratec.minesweeper.api.Move;
 
 /**
  * This interface describes a callback for the move event.
@@ -34,7 +33,8 @@ public interface MoveObserver {
      *
      * @param numberOfMoves the number of moves
      * @param board the board
-     * @param move the current move
+     * @param x the x coordinate of the move
+     * @param y the y coordinate of the move
      */
-    void observeMove(int numberOfMoves, Board board, Move move);
+    void observeMove(int numberOfMoves, Board board, int x, int y);
 }

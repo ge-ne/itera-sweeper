@@ -28,8 +28,8 @@ package de.iteratec.minesweeper.api;
 public interface Player {
 
     /**
-     * This method is called once at the beginning of a game.
-     * The default implementation simply does nothing.
+     * This method is called once at the beginning of a game. The default
+     * implementation simply does nothing.
      *
      * @param board the board
      */
@@ -39,11 +39,11 @@ public interface Player {
 
     /**
      * This method is called once at the end of a game. It is invoked in any
-     * case being it won or lost.
-     * The default implementation simply does nothing.
+     * case being it won or lost. The default implementation simply does
+     * nothing.
      */
     default void terminateGame() {
-        
+
     }
 
     /**
@@ -54,5 +54,5 @@ public interface Player {
      * @return the move, i.e. the coordinates on the board to probe.
      *         Alternatively <code>null</code> can be returned to surrender
      */
-    Move move(Board board);
+    int[] move(Board board);
 }
