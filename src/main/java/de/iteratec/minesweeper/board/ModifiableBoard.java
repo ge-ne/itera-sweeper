@@ -42,6 +42,17 @@ public interface ModifiableBoard extends Board {
     boolean set(int x, int y);
 
     /**
+     * Places a bomb on a certain cell on the board.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * 
+     * @return <code>true</code> iff the cell is on the board and has not
+     *         contained a bomb previously
+     */
+    boolean setBomb(int x, int y);
+
+    /**
      * Check whether there are further cells to be uncovered.
      *
      * @return <code>true</code> iff all free cells have been uncovered

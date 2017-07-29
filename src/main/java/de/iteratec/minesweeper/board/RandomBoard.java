@@ -27,9 +27,9 @@ package de.iteratec.minesweeper.board;
 public class RandomBoard extends BaseBoard {
 
     /**
-     * Creates a new object and fill 10% of the board with bombs.
-     * The width is randomly selected between 3 and 24.
-     * The height is randomly selected between 3 and 24.
+     * Creates a new object and fill 10% of the board with bombs. The width is
+     * randomly selected between 3 and 24. The height is randomly selected
+     * between 3 and 24.
      */
     public RandomBoard() {
 
@@ -81,7 +81,7 @@ public class RandomBoard extends BaseBoard {
         while (bombs > 0) {
             int x = (int) (Math.random() * width);
             int y = (int) (Math.random() * height);
-            if (set(x, y)) {
+            if (setBomb(x, y)) {
                 bombs--;
             }
         }
