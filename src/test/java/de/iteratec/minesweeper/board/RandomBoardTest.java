@@ -27,56 +27,93 @@ import org.junit.Test;
 import de.iteratec.minesweeper.api.Board.Sense;
 
 /**
- * TODO gene: missing JavaDoc.
+ * This is a test suite for the class {@link RandomBoard}.
  *
  * @author <a href="mailto:gene@gerd-neugebauer.de">Gerd Neugebauer</a>
  * @version $Revision$
  */
 public class RandomBoardTest {
 
+    /**
+     * A illegal size 0x0 leads to an exception.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void test00() {
 
         new RandomBoard(0, 0);
     }
 
+    /**
+     * A illegal size 1x0 leads to an exception.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void test01() {
 
         new RandomBoard(1, 0);
     }
 
+    /**
+     * A illegal size 0x1 leads to an exception.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void test02() {
 
         new RandomBoard(0, 1);
     }
 
+    /**
+     * A illegal number of bombs leads to an exception. Two bombs can not be
+     * placed on a 1x1 board.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void test10() {
 
         new RandomBoard(1, 1, 2);
     }
 
+    /**
+     * A illegal number of bombs leads to an exception. Bombs can not be
+     * negative.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void test11() {
 
         new RandomBoard(1, 1, -1);
     }
 
+    /**
+     * A illegal number of bombs leads to an exception. 7 bombs can not be
+     * placed on a 2x3 board.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void test13() {
 
         new RandomBoard(2, 3, 7);
     }
 
+    /**
+     * A empty board cell which is not set is reported as UNKNOWN.
+     */
     @Test
-    public void test20() {
+    public void testGet10() {
 
         RandomBoard board = new RandomBoard(1, 1);
         assertEquals(Sense.UNKNOWN, board.get(0, 0));
     }
 
+    /**
+     * A bomb on a board cell which is not set is reported as UNKNOWN.
+     */
+    @Test
+    public void testGet11() {
+
+        RandomBoard board = new RandomBoard(1, 1, 1);
+        assertEquals(Sense.UNKNOWN, board.get(0, 0));
+    }
+
+    /**
+     * Width and height are in the range [3,24].
+     */
     @Test
     public void test30() {
 
@@ -87,6 +124,9 @@ public class RandomBoardTest {
         assertTrue(board.getHeight() <= 24);
     }
 
+    /**
+     * A cell outside the board is reported as OUTSIDE.
+     */
     @Test
     public void testGet1() {
 
@@ -94,6 +134,9 @@ public class RandomBoardTest {
         assertEquals(Sense.OUTSIDE, board.get(-1, 0));
     }
 
+    /**
+     * A cell outside the board is reported as OUTSIDE.
+     */
     @Test
     public void testGet2() {
 
@@ -101,6 +144,9 @@ public class RandomBoardTest {
         assertEquals(Sense.OUTSIDE, board.get(0, -1));
     }
 
+    /**
+     * A cell outside the board is reported as OUTSIDE.
+     */
     @Test
     public void testGet3() {
 
@@ -108,6 +154,9 @@ public class RandomBoardTest {
         assertEquals(Sense.OUTSIDE, board.get(1, 0));
     }
 
+    /**
+     * A cell outside the board is reported as OUTSIDE.
+     */
     @Test
     public void testGet4() {
 
@@ -115,24 +164,36 @@ public class RandomBoardTest {
         assertEquals(Sense.OUTSIDE, board.get(0, 1));
     }
 
+    /**
+     * An empty board is not complete.
+     */
     @Test
     public void testIsCompleted1() {
 
         assertEquals(false, new RandomBoard(2, 3, 0).isCompleted());
     }
 
+    /**
+     * A filled board is complete.
+     */
     @Test
     public void testIsCompleted2() {
 
         assertEquals(true, new RandomBoard(2, 3, 6).isCompleted());
     }
 
+    /**
+     * The width can be queried.
+     */
     @Test
     public void testGetWidth1() {
 
         assertEquals(2, new RandomBoard(2, 3, 0).getWidth());
     }
 
+    /**
+     * The height can be queried.
+     */
     @Test
     public void testGetHeight1() {
 
