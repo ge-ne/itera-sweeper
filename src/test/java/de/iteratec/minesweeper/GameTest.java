@@ -105,4 +105,16 @@ public class GameTest {
         assertEquals(game.getMoves(), count[0]);
     }
 
+    /**
+     * The move observer is called for each move.
+     */
+    @Test
+    public void test20() {
+
+        int[] count = {0};
+        Game game = new Game().setMoveObserver((a, b, c) -> count[0]++);
+        game.play(new RandomPlayer());
+        assertEquals(game.getMoves(), count[0]);
+    }
+
 }
