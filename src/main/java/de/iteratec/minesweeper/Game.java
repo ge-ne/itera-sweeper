@@ -26,7 +26,9 @@ import de.iteratec.minesweeper.board.ModifiableBoard;
 import de.iteratec.minesweeper.board.RandomBoard;
 
 /**
- * This class is a driver for a game of Minesweeper.
+ * This class is a driver for a game of Minesweeper. A new board is allocated
+ * and filled. Then the player is started and run until the result has been
+ * determined.
  *
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */

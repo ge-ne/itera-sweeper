@@ -17,7 +17,8 @@
  *
  */
 /**
- * This package contains a driver for the game of Minesweeper.
+ * This package contains a driver for the game of Minesweeper. The main entrance
+ * for a single game is the class {@link Game}.
  *
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */
