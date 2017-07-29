@@ -29,17 +29,17 @@ import java.io.Serializable;
 public class BaseBoard implements Serializable, ModifiableBoard {
 
     /**
-     * The field <tt>serialVersionUID</tt> contains the version number for
-     * serialization.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * This enumeration contains the states of a cell.
      */
     public enum State {
         BOMB, USED, FREE
     }
+
+    /**
+     * The field <tt>serialVersionUID</tt> contains the version number for
+     * serialization.
+     */
+    private static final long serialVersionUID = 1L;
 
     private static final Sense[] tip = {Sense.SENSE_0, Sense.SENSE_1,
             Sense.SENSE_2, Sense.SENSE_3, Sense.SENSE_4, Sense.SENSE_5,
@@ -55,10 +55,24 @@ public class BaseBoard implements Serializable, ModifiableBoard {
      */
     protected int height;
 
+    /**
+     * The field <tt>free</tt> contains the number of cells to be filled.
+     */
     protected int free;
 
+    /**
+     * The field <tt>bombs</tt> contains the number of bombs.
+     */
+    private int bombs = 0;
+
+    /**
+     * The field <tt>hint</tt> contains the cache of the hint numbers.
+     */
     private byte[][] hint;
 
+    /**
+     * The field <tt>mark</tt> contains the state marks for the board.
+     */
     private State[][] mark;
 
     /**
@@ -111,6 +125,17 @@ public class BaseBoard implements Serializable, ModifiableBoard {
             default:
                 throw new IllegalStateException("This can not happen");
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see de.iteratec.minesweeper.api.Board#getBombs()
+     */
+    @Override
+    public int getBombs() {
+
+        return bombs;
     }
 
     /**
@@ -189,6 +214,7 @@ public class BaseBoard implements Serializable, ModifiableBoard {
         }
         mark[x][y] = State.BOMB;
         free--;
+        bombs++;
 
         if (x > 0) {
             if (y > 1) {

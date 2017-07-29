@@ -114,6 +114,13 @@ public interface Board {
     int getHeight();
 
     /**
+     * This is the getter for the number of bombs on the board.
+     *
+     * @return the number of bombs
+     */
+    int getBombs();
+
+    /**
      * Getter for the content of a cell in the field.
      *
      * @param x the x coordinate to be queried

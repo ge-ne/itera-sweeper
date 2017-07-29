@@ -53,12 +53,12 @@ public class RandomBoard extends BaseBoard {
 
     /**
      * Creates a new object and fill 10% of the board with bombs. The width is
-     * randomly selected between 3 and 24. The height is randomly selected
-     * between 3 and 24.
+     * randomly selected between 3 and 99. The height is randomly selected
+     * between 3 and 99.
      */
     public RandomBoard() {
 
-        this(3 + random.nextInt(21), 3 + random.nextInt(21));
+        this(3 + random.nextInt(96), 3 + random.nextInt(96));
     }
 
     /**
