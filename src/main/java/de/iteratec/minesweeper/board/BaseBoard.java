@@ -217,7 +217,7 @@ public class BaseBoard implements Serializable, ModifiableBoard {
         bombs++;
 
         if (x > 0) {
-            if (y > 1) {
+            if (y > 0) {
                 hint[x - 1][y - 1]++;
             }
             hint[x - 1][y]++;
@@ -232,7 +232,7 @@ public class BaseBoard implements Serializable, ModifiableBoard {
             hint[x][y + 1]++;
         }
         if (x < width - 1) {
-            if (y > 1) {
+            if (y > 0) {
                 hint[x + 1][y - 1]++;
             }
             hint[x + 1][y]++;
