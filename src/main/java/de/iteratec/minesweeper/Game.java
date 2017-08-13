@@ -59,7 +59,7 @@ public class Game {
      * The field <tt>boardFactory</tt> contains the factory to produce a new
      * board.
      */
-    private BoardFactory boardFactory = (() -> new RandomBoard());
+    private BoardFactory boardFactory = RandomBoard::new;
 
     /**
      * Creates a new object.
@@ -118,10 +118,11 @@ public class Game {
             while (!board.isCompleted()) {
                 int[] move = player.move(board);
                 moves++;
-                if (moveObserver != null) {
+                boolean lost = move == null || !board.set(move[0], move[1]);
+                if (moveObserver != null && move != null) {
                     moveObserver.observeMove(moves, board, move[0], move[1]);
                 }
-                if (move == null || !board.set(move[0], move[1])) {
+                if (lost) {
                     won = false;
                     return this;
                 }

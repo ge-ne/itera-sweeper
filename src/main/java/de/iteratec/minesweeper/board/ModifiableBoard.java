@@ -58,4 +58,5 @@ public interface ModifiableBoard extends Board {
      * @return <code>true</code> iff all free cells have been uncovered
      */
     boolean isCompleted();
+
 }

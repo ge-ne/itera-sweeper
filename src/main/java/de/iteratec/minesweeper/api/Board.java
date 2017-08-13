@@ -33,66 +33,78 @@ public interface Board {
      *
      */
     enum Sense {
-        /**
-         * The value <tt>OUTSIDE</tt> contains the indicator for a cell outside
-         * the board.
-         */
-        OUTSIDE,
-        /**
-         * The value <tt>UNKNOWN</tt> contains the indicator for a cell with
-         * unknown status.
-         */
-        UNKNOWN,
-        /**
-         * The value <tt>BOMB</tt> contains the indicator for a cell with a
-         * bomb.
-         */
-        BOMB,
+
+
         /**
          * The value <tt>SENSE_0</tt> contains the indicator for a cell with 0
          * bomb in the neighborhood.
          */
-        SENSE_0,
+        SENSE_0(0),
         /**
          * The value <tt>SENSE_1</tt> contains the indicator for a cell with 1
          * bomb in the neighborhood.
          */
-        SENSE_1,
+        SENSE_1(1),
         /**
          * The value <tt>SENSE_2</tt> contains the indicator for a cell with 2
          * bomb in the neighborhood.
          */
-        SENSE_2,
+        SENSE_2(2),
         /**
          * The value <tt>SENSE_3</tt> contains the indicator for a cell with 3
          * bomb in the neighborhood.
          */
-        SENSE_3,
+        SENSE_3(3),
         /**
          * The value <tt>SENSE_4</tt> contains the indicator for a cell with 4
          * bomb in the neighborhood.
          */
-        SENSE_4,
+        SENSE_4(4),
         /**
          * The value <tt>SENSE_5</tt> contains the indicator for a cell with 5
          * bomb in the neighborhood.
          */
-        SENSE_5,
+        SENSE_5(5),
         /**
          * The value <tt>SENSE_6</tt> contains the indicator for a cell with 6
          * bomb in the neighborhood.
          */
-        SENSE_6,
+        SENSE_6(6),
         /**
          * The value <tt>SENSE_7</tt> contains the indicator for a cell with 7
          * bomb in the neighborhood.
          */
-        SENSE_7,
+        SENSE_7(7),
         /**
          * The value <tt>SENSE_8</tt> contains the indicator for a cell with 8
          * bomb in the neighborhood.
          */
-        SENSE_8
+        SENSE_8(8),
+        /**
+         * The value <tt>OUTSIDE</tt> contains the indicator for a cell outside
+         * the board.
+         */
+        OUTSIDE(-1),
+        /**
+         * The value <tt>UNKNOWN</tt> contains the indicator for a cell with
+         * unknown status.
+         */
+        UNKNOWN(-2),
+        /**
+         * The value <tt>BOMB</tt> contains the indicator for a cell with a
+         * bomb.
+         */
+        BOMB(10);
+
+
+        private final int value;
+        private Sense(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
     /**

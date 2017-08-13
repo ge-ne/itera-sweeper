@@ -19,10 +19,10 @@
 
 package de.iteratec.minesweeper.players;
 
-import java.util.Random;
-
 import de.iteratec.minesweeper.api.Board;
 import de.iteratec.minesweeper.api.Player;
+
+import java.util.Random;
 
 /**
  * This Minesweeper player randomly chooses a cell for the next move.

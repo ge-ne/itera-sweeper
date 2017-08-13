@@ -34,6 +34,7 @@ public class RandomBoard extends BaseBoard {
      */
     private static Random random = new Random();
 
+
     /**
      * Reset the random number generator to one with the given seed value. Thus
      * it is possible to achieve a reproducible random number sequence.

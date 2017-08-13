@@ -1,0 +1,74 @@
+.field-bomb {
+    -fx-background-image: url("mine.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 80%;
+    -fx-background-position: center center;
+}
+
+.field-flag {
+    -fx-background-image: url("flag.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 80%;
+    -fx-background-position: center center;
+}
+
+.field-border {
+    -fx-border-color: lightgrey;
+    -fx-border-width: 1px;
+    -fx-padding: 1px;
+}
+
+.field-number {
+    -fx-alignment: center;
+    -fx-base: rgba(145, 142, 142, 0.13);
+    -fx-font-weight: bold;
+    -fx-font-size: 150%;
+}
+
+.field-one {
+    -fx-text-fill: dodgerblue;
+}
+
+.field-two {
+    -fx-text-fill: green;
+}
+
+.field-three {
+    -fx-text-fill: red;
+}
+
+.field-four {
+    -fx-text-fill: darkslateblue;
+}
+
+.field-five {
+    -fx-text-fill: darkred;
+}
+
+.field-six {
+    -fx-text-fill: darkmagenta;
+}
+
+.field-seven {
+    -fx-text-fill: darkmagenta;
+}
+
+.field-eight {
+    -fx-text-fill: darkmagenta;
+}
+
+.click-animation {
+    -fx-background-color: lightsalmon;
+}
+
+.play-button {
+    -fx-spacing: 5%;
+    -fx-max-height: 20;
+}
+
+.loop-check-box {
+    -fx-min-height: 30;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-spacing: 5%;
+}
