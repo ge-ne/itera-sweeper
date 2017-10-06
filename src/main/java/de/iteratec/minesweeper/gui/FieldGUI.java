@@ -21,7 +21,7 @@ public class FieldGUI extends HBox {
 
     private static final int DURATION_HUMAN_CLICK_ANIMATION_MILLIS = 400;
 
-    private List<FieldClickListener> listenerList = new ArrayList<>();
+    private List<FieldClickListener> fieldClickListeners = new ArrayList<>();
 
     private final int x, y;
 
@@ -112,7 +112,7 @@ public class FieldGUI extends HBox {
     }
 
     private void onMouseLeftClick() {
-        for (FieldClickListener fieldClickListener : listenerList) {
+        for (FieldClickListener fieldClickListener : fieldClickListeners) {
             fieldClickListener.onLeftClick(x, y);
         }
     }
@@ -203,6 +203,6 @@ public class FieldGUI extends HBox {
     }
 
     void addFieldGUIListener(FieldClickListener fieldClickListener) {
-        this.listenerList.add(fieldClickListener);
+        this.fieldClickListeners.add(fieldClickListener);
     }
 }

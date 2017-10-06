@@ -13,7 +13,7 @@ import javafx.application.Platform;
  *
  * @author Patrick Hock
  */
-public abstract class BoardGUIController implements GameMoveListener, MoveObserver, StartGameObserver {
+public abstract class BoardGUIController implements GameMoveListener, MoveObserver, StartGameListener {
 
     /**
      * Current game to be played.
@@ -56,7 +56,7 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
         this.game = new Game();
         this.game.setBoardFactory(boardFactory);
         this.game.setMoveObserver(this);
-        this.player.setStartGameObserver(this);
+        this.player.setStartGameListener(this);
     }
 
     /**
@@ -83,7 +83,7 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
         if (clickedOnBomb) {
             this.gameIsLost = true;
             setAllFields();
-            revealOpenedFields(new RevealBombStrategy());
+            revealOpenedFields(new RevealBombBehaviour());
             terminateGame();
         } else if (hasWon()) {
             terminateGame();
@@ -128,7 +128,7 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
     }
 
     private void updateBoardGui() {
-        revealOpenedFields(new RevealTipStrategy());
+        revealOpenedFields(new RevealTipBehaviour());
     }
 
     /**
@@ -142,11 +142,11 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
         }
     }
 
-    private void revealOpenedFields(RevealStrategy revealStrategy) {
+    private void revealOpenedFields(RevealBehaviour revealBehaviour) {
         Platform.runLater(() -> {
             for (int x = 0; x < board.getWidth(); x++) {
                 for (int y = 0; y < board.getHeight(); y++) {
-                    revealStrategy.reveal(x, y);
+                    revealBehaviour.reveal(x, y);
                 }
             }
         });
@@ -196,16 +196,16 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
     }
 
     /**
-     * What should be revealed?
+     * Behaviour which indicates what happens when a field is revealed.
      */
-    private interface RevealStrategy {
+    private interface RevealBehaviour {
         void reveal(int x, int y);
     }
 
     /**
      * A bomb should be revealed.
      */
-    private class RevealBombStrategy implements RevealStrategy {
+    private class RevealBombBehaviour implements RevealBehaviour {
         @Override
         public void reveal(int x, int y) {
             final Board.Sense sense = getBoard().get(x, y);
@@ -217,9 +217,9 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
     }
 
     /**
-     * A tip should be revealed.
+     * A tip (field containing a number of neighbouring fields) should be revealed.
      */
-    private class RevealTipStrategy implements RevealStrategy {
+    private class RevealTipBehaviour implements RevealBehaviour {
 
         @Override
         public void reveal(int x, int y) {

@@ -16,6 +16,8 @@ import java.util.*;
 
 /**
  * Main Controller for all GUI elements.
+ *
+ * @author Patrick Hock
  */
 public class MainWindowGUIController implements Initializable, GameMoveListener, Main.ApplicationStoppedListener {
 
@@ -26,7 +28,7 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
     private ControlsGUI controlsGUI;
 
     @FXML
-    private SettingsGUI settingsGUI;
+    private BoardSettingsGUI boardSettingsGUI;
 
     @FXML
     private StatsGUI statsGUI;
@@ -48,7 +50,6 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
      * All nonHumanPlayers that can be chosen to play the game.
      */
     private Map<String, Player> nonHumanPlayers = new HashMap<>();
-
 
     /**
      * The selected player at the time when the game was started.
@@ -79,7 +80,8 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
     }
 
     /**
-     * Starts a new game depending on the selected player
+     * Starts a new game depending on which player was selected
+     * @param selectedPlayer The player selected from the dropdown list
      */
     private void startNewGame(String selectedPlayer) {
         stopRunningGame();
@@ -183,14 +185,14 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
     }
 
     private int getBoardWidth() {
-        return settingsGUI.getBoardWidth();
+        return boardSettingsGUI.getBoardWidth();
     }
 
     private int getBoardHeight() {
-        return settingsGUI.getBoardHeight();
+        return boardSettingsGUI.getBoardHeight();
     }
 
     private int getBombsInBoard() {
-        return settingsGUI.getNumberOfBombs();
+        return boardSettingsGUI.getNumberOfBombs();
     }
 }

@@ -3,10 +3,11 @@ package de.iteratec.minesweeper.gui;
 import de.iteratec.minesweeper.api.Board;
 
 /**
- * Observer for startGame event.
+ * Observer for the even startGame.
  *
  * @author Patrick Hock
  */
-public interface StartGameObserver {
+public interface StartGameListener {
+
     void startGame(Board board);
 }

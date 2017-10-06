@@ -21,17 +21,17 @@ public class SimulationGameBoardGUIController extends BoardGUIController {
 
     @Override
     public void observeMove(int numberOfMoves, Board board, int x, int y) {
-        delay(DURATION_MOVE_DELAY_IN_MILLIS / 2);
+        threadSleep(DURATION_MOVE_DELAY_IN_MILLIS / 2);
         animateClick(x,y);
         super.observeMove(numberOfMoves, board, x, y);
-        delay(DURATION_MOVE_DELAY_IN_MILLIS / 2);
+        threadSleep(DURATION_MOVE_DELAY_IN_MILLIS / 2);
     }
 
     private void animateClick(int x, int y) {
         Platform.runLater(() -> getBoardGUI().animateClick(x, y, DURATION_CLICK_ANIMATION_IN_MILLIS));
     }
 
-    private void delay(int millis) {
+    private void threadSleep(int millis) {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {

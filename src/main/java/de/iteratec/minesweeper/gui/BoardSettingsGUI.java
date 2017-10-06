@@ -11,18 +11,24 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * GUI for choosing the board settings (dimension of fields, number of bombs)
+ *
  * @author Patrick Hock
  */
-public class SettingsGUI extends HBox implements Initializable {
+public class BoardSettingsGUI extends HBox implements Initializable {
 
-    @FXML private TextField widthTextField;
+    @FXML
+    private TextField widthTextField;
 
-    @FXML private TextField heightTextField;
+    @FXML
+    private TextField heightTextField;
 
-    @FXML private TextField bombsTextField;
+    @FXML
+    private TextField bombsTextField;
 
-    public SettingsGUI() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("settings.fxml"));
+    public BoardSettingsGUI() {
+        final URL boardSettingsFxmlFile = getClass().getClassLoader().getResource("board_settings.fxml");
+        final FXMLLoader fxmlLoader = new FXMLLoader(boardSettingsFxmlFile);
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {

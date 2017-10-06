@@ -6,6 +6,8 @@ import de.iteratec.minesweeper.api.Player;
 import java.util.Random;
 
 /**
+ * This player clicks randomly on any free field of the minesweeper board.
+ *
  * @author Patrick Hock
  */
 public class RandomFreeFieldPlayer implements Player {
@@ -14,15 +16,23 @@ public class RandomFreeFieldPlayer implements Player {
 
     @Override
     public int[] move(Board board) {
-        int[] result;
+        int[] click;
         do {
-            result = new int[]{random.nextInt(board.getWidth()),
-                    random.nextInt(board.getHeight())};
-        } while (!isFree(board, result));
-        return result;
+            final int x = random.nextInt(board.getWidth());
+            final int y = random.nextInt(board.getHeight());
+            click = new int[]{x, y};
+        } while (!isFree(board, click));
+        return click;
     }
 
-    private boolean isFree(Board board, int[] result) {
-        return board.get(result[0], result[1]) == Board.Sense.UNKNOWN;
+    /**
+     * Checks if there is a free field on the given position of the board.
+     * @param board The current board.
+     * @param pos The position as two-dimensional array (must be within board dimensions).
+     * @return True if the position is free. Otherwise false (if the field was revealed already).
+     */
+    private boolean isFree(Board board, int[] pos) {
+        final Board.Sense boardSense = board.get(pos[0], pos[1]);
+        return boardSense == Board.Sense.UNKNOWN;
     }
 }

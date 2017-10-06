@@ -12,15 +12,15 @@ public abstract class GUIPlayer implements Player {
 
     private boolean gameTerminated = false;
 
-    private StartGameObserver startGameObserver;
+    private StartGameListener startGameListener;
 
-    void setStartGameObserver(StartGameObserver startGameObserver) {
-        this.startGameObserver = startGameObserver;
+    void setStartGameListener(StartGameListener startGameListener) {
+        this.startGameListener = startGameListener;
     }
 
     public void startGame(Board board) {
-        if (startGameObserver != null) {
-            startGameObserver.startGame(board);
+        if (startGameListener != null) {
+            startGameListener.startGame(board);
         }
     }
 

@@ -2,14 +2,14 @@
 
 <?import de.iteratec.minesweeper.gui.BoardGUI?>
 <?import de.iteratec.minesweeper.gui.ControlsGUI?>
-<?import de.iteratec.minesweeper.gui.SettingsGUI?>
+<?import de.iteratec.minesweeper.gui.BoardSettingsGUI?>
 <?import de.iteratec.minesweeper.gui.StatsGUI?>
 <?import javafx.scene.layout.*?>
 <GridPane fx:id="mainGrid" alignment="center" hgap="10" vgap="10"
           xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="de.iteratec.minesweeper.gui.MainWindowGUIController">
     <ControlsGUI fx:id="controlsGUI" GridPane.rowIndex="0"/>
-    <SettingsGUI fx:id="settingsGUI" GridPane.rowIndex="1" />
+    <BoardSettingsGUI fx:id="boardSettingsGUI" GridPane.rowIndex="1" />
     <HBox GridPane.rowIndex="2">
         <StatsGUI fx:id="statsGUI"/>
     </HBox>

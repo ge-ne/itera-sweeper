@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
+ * GUI for the basic game controls (play, select player, etc.)
+ *
  * @author Patrick Hock
  */
 public class ControlsGUI extends VBox implements Initializable {
@@ -39,7 +41,8 @@ public class ControlsGUI extends VBox implements Initializable {
     private StartNewGameClickListener startNewGameClickListener;
 
     public ControlsGUI() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("controls.fxml"));
+        final URL controlsFxmlFile = getClass().getClassLoader().getResource("controls.fxml");
+        final FXMLLoader fxmlLoader = new FXMLLoader(controlsFxmlFile);
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -63,7 +66,7 @@ public class ControlsGUI extends VBox implements Initializable {
 
     void registerNonHuman(Map<String, Player> nonHumanPlayers) {
         players.put(PLAYER_NAME_HUMAN, null);
-        this.players.putAll(nonHumanPlayers);
+        players.putAll(nonHumanPlayers);
         playersComboBox.setItems(getPlayerStrategies());
         playersComboBox.getSelectionModel().selectFirst();
     }

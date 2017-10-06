@@ -12,6 +12,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * Gui which shows the current statistics.
+ *
  * @author Patrick Hock
  */
 public class StatsGUI extends HBox implements Initializable {
@@ -19,7 +21,8 @@ public class StatsGUI extends HBox implements Initializable {
     @FXML
     private Label statsLabel;
 
-    private int gamesCount = 0;
+    private int gamesPlayedCount = 0;
+
     private int gamesWonCount = 0;
 
     public StatsGUI() {
@@ -32,25 +35,26 @@ public class StatsGUI extends HBox implements Initializable {
             throw new RuntimeException(exception);
         }
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
 
     void onGameWon() {
-        gamesCount++;
+        gamesPlayedCount++;
         gamesWonCount++;
         updateGui();
     }
 
     void onGameLost() {
-        gamesCount++;
+        gamesPlayedCount++;
         updateGui();
     }
 
-
     private void updateGui() {
-        String won = "" + gamesWonCount;
-        String games = "" + gamesCount;
-        Platform.runLater(() -> statsLabel.setText("won " + won + " of " + games + " games"));
+        final String gamesWon = "" + gamesWonCount;
+        final String gamesPlayed = "" + gamesPlayedCount;
+        final String guiText = "won " + gamesWon + " of " + gamesPlayed + " games";
+        Platform.runLater(() -> statsLabel.setText(guiText));
     }
 }
