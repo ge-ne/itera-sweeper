@@ -5,6 +5,7 @@ import com.google.common.reflect.ClassPath;
 import de.iteratec.minesweeper.api.Player;
 import de.iteratec.minesweeper.board.BoardFactory;
 import de.iteratec.minesweeper.board.RandomBoard;
+import de.iteratec.minesweeper.players.RandomFreeFieldPlayer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -19,7 +20,7 @@ import java.util.*;
  *
  * @author Patrick Hock
  */
-public class MainWindowGUIController implements Initializable, GameMoveListener, Main.ApplicationStoppedListener {
+public class MainWindowGUIController implements Initializable, GameMoveListener, Main.ApplicationStoppedListener, StartNewGameSeriesListener {
 
     @FXML
     private GridPane mainGrid;
@@ -29,6 +30,9 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
 
     @FXML
     private BoardSettingsGUI boardSettingsGUI;
+
+    @FXML
+    private GameSeriesSettingsGUI gameSeriesSettingsGUI;
 
     @FXML
     private StatsGUI statsGUI;
@@ -52,9 +56,11 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
     private Map<String, Player> nonHumanPlayers = new HashMap<>();
 
     /**
-     * The selected player at the time when the game was started.
+     * The selected gameSeriesPlayer at the time when the game was started.
      */
     private String selectedPlayer;
+
+    private int gameSeriesSeed = -1;
 
     public MainWindowGUIController() {
         Main.getInstance().registerApplicationStopListener(this);
@@ -73,6 +79,7 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
         }
         controlsGUI.registerNonHuman(nonHumanPlayers);
         controlsGUI.addStartNewGameClickListener(this::startNewGame);
+        gameSeriesSettingsGUI.registerListener(this);
     }
 
     private BoardFactory createBoardFactory() {
@@ -80,8 +87,8 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
     }
 
     /**
-     * Starts a new game depending on which player was selected
-     * @param selectedPlayer The player selected from the dropdown list
+     * Starts a new game depending on which gameSeriesPlayer was selected
+     * @param selectedPlayer The gameSeriesPlayer selected from the dropdown list
      */
     private void startNewGame(String selectedPlayer) {
         stopRunningGame();
@@ -89,9 +96,17 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
         boardGUIController = createGameGUIController(selectedPlayer);
         boardGUIController.setMoveListener(this);
         boardGUIController.newGame();
+
         Main.getInstance().getStage().setWidth(getBoardWidth() * 31 + 10);
         mainGrid.setPadding(new Insets(20, 10, 20, 20));
         Main.getInstance().getStage().setHeight(getBoardHeight() * 31 + 250);
+    }
+
+    // TODO auslagern
+    private void startnewGameSeries() {
+        RandomFreeFieldPlayer randomFreeFieldPlayer = new RandomFreeFieldPlayer();
+
+
     }
 
     private BoardGUIController createGameGUIController(String selectedItem) {
@@ -113,19 +128,19 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
         if (boardGUIController.hasLost()) {
             statsGUI.onGameLost();
             updateText("Yout lost!");
-            startNewGame(selectedPlayer, 3000);
+            restartGame(selectedPlayer, 3000);
             return;
         }
         if (boardGUIController.hasWon()) {
             statsGUI.onGameWon();
             updateText("You won!");
-            startNewGame(selectedPlayer, 3000);
+            restartGame(selectedPlayer, 3000);
             return;
         }
         updateText("Fields: " + boardGUIController.getRemainingFieldsCounter());
     }
 
-    private void startNewGame(String selectedPlayer, int delayInMillis) {
+    private void restartGame(String selectedPlayer, int delayInMillis) {
         if (selectedPlayer.equals(ControlsGUI.PLAYER_NAME_HUMAN)) {
             return;
         }
@@ -194,5 +209,10 @@ public class MainWindowGUIController implements Initializable, GameMoveListener,
 
     private int getBombsInBoard() {
         return boardSettingsGUI.getNumberOfBombs();
+    }
+
+    @Override
+    public void newGameSeries(int seed) {
+        this.gameSeriesSeed = seed;
     }
 }

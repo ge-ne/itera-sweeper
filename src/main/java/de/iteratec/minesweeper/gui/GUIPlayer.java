@@ -25,7 +25,7 @@ public abstract class GUIPlayer implements Player {
     }
 
     @Override
-    public void terminateGame() {
+    public void terminateGame(boolean won) {
         gameTerminated = true;
     }
 

@@ -13,7 +13,7 @@ import javafx.application.Platform;
  *
  * @author Patrick Hock
  */
-public abstract class BoardGUIController implements GameMoveListener, MoveObserver, StartGameListener {
+public abstract class BoardGUIController extends AbstractBoardGUIController implements GameMoveListener, MoveObserver, StartGameListener {
 
     /**
      * Current game to be played.
@@ -26,7 +26,7 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
     private final BoardGUI boardGUI;
 
     /**
-     * The current player.
+     * The current gameSeriesPlayer.
      */
     private final GUIPlayer player;
 
@@ -78,11 +78,11 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
     public void observeMove(int numberOfMoves, Board board, int x, int y) {
         Board.Sense clickedSense = getBoard().get(x, y);
         updateRemainingFieldsCounter();
-        updateBoardGui();
+        revealOpenedFields(new RevealTipBehaviour());
         final boolean clickedOnBomb = Board.Sense.UNKNOWN.equals(clickedSense);
         if (clickedOnBomb) {
             this.gameIsLost = true;
-            setAllFields();
+            openAllFields();
             revealOpenedFields(new RevealBombBehaviour());
             terminateGame();
         } else if (hasWon()) {
@@ -127,14 +127,10 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
         return counter - board.getBombs();
     }
 
-    private void updateBoardGui() {
-        revealOpenedFields(new RevealTipBehaviour());
-    }
-
     /**
      * Calls set() on each field of the {@link #board}
      */
-    private void setAllFields() {
+    private void openAllFields() {
         for (int x = 0; x < board.getWidth(); x++) {
             for (int y = 0; y < board.getHeight(); y++) {
                 board.set(x, y);
@@ -142,15 +138,7 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
         }
     }
 
-    private void revealOpenedFields(RevealBehaviour revealBehaviour) {
-        Platform.runLater(() -> {
-            for (int x = 0; x < board.getWidth(); x++) {
-                for (int y = 0; y < board.getHeight(); y++) {
-                    revealBehaviour.reveal(x, y);
-                }
-            }
-        });
-    }
+
 
     /**
      * @return true if the game was lost, else false
@@ -182,7 +170,7 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
         this.board = board;
     }
 
-    BoardGUI getBoardGUI() {
+    protected BoardGUI getBoardGUI() {
         return boardGUI;
     }
 
@@ -191,43 +179,9 @@ public abstract class BoardGUIController implements GameMoveListener, MoveObserv
     }
 
     void terminateGame() {
-        getPlayer().terminateGame();
+        getPlayer().terminateGame(hasWon());
         getBoardGUI().disableBoard();
     }
 
-    /**
-     * Behaviour which indicates what happens when a field is revealed.
-     */
-    private interface RevealBehaviour {
-        void reveal(int x, int y);
-    }
 
-    /**
-     * A bomb should be revealed.
-     */
-    private class RevealBombBehaviour implements RevealBehaviour {
-        @Override
-        public void reveal(int x, int y) {
-            final Board.Sense sense = getBoard().get(x, y);
-            final boolean isBomb = Board.Sense.UNKNOWN.equals(sense);
-            if (isBomb) {
-                getBoardGUI().revealBomb(x, y);
-            }
-        }
-    }
-
-    /**
-     * A tip (field containing a number of neighbouring fields) should be revealed.
-     */
-    private class RevealTipBehaviour implements RevealBehaviour {
-
-        @Override
-        public void reveal(int x, int y) {
-            final Board.Sense sense = getBoard().get(x, y);
-            final boolean isATip = !Board.Sense.UNKNOWN.equals(sense);
-            if (isATip) {
-                getBoardGUI().revealTip(x, y, sense);
-            }
-        }
-    }
 }

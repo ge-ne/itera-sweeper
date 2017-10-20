@@ -41,8 +41,9 @@ public interface Player {
      * This method is called once at the end of a game. It is invoked in any
      * case being it won or lost. The default implementation simply does
      * nothing.
+     * @param won Indicates if the game was won
      */
-    default void terminateGame() {
+    default void terminateGame(boolean won) {
 
     }
 

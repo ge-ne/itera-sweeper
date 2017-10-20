@@ -31,7 +31,7 @@ public class HumanGameBoardGUIController extends BoardGUIController implements F
     }
 
     /**
-     * Player for a human played game (human player is clicking the GUI).
+     * Player for a human played game (human gameSeriesPlayer is clicking the GUI).
      * Move is done by looping while waiting for input.
      */
     private static class HumanGamePlayer extends GUIPlayer {

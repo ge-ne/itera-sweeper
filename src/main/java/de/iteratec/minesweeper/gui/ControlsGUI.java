@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * GUI for the basic game controls (play, select player, etc.)
+ * GUI for the basic game controls (play, select gameSeriesPlayer, etc.)
  *
  * @author Patrick Hock
  */

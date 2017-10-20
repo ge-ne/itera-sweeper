@@ -40,7 +40,7 @@ public class SimulationGameBoardGUIController extends BoardGUIController {
     }
 
     /**
-     * Player for a simulated game. Delegates move() to the given player (strategy).
+     * Player for a simulated game. Delegates move() to the given gameSeriesPlayer (strategy).
      */
     private static class SimulationGamePlayer extends GUIPlayer {
 
@@ -49,14 +49,14 @@ public class SimulationGameBoardGUIController extends BoardGUIController {
 
         /**
          * Creates new SimulationGamePlayer
-         * @param strategy The player to which move-Method is delegated.
+         * @param strategy The gameSeriesPlayer to which move-Method is delegated.
          */
         SimulationGamePlayer(Player strategy) {
             this.strategy = strategy;
         }
 
         /**
-         * Delegates move to the strategy player.
+         * Delegates move to the strategy gameSeriesPlayer.
          *
          * {@inheritDoc}
          */

@@ -132,7 +132,7 @@ public class Game {
         } catch (Exception e) {
             won = false;
         } finally {
-            player.terminateGame();
+            player.terminateGame(won);
         }
         return this;
     }
