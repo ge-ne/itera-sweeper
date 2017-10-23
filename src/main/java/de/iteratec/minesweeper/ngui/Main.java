@@ -1,4 +1,4 @@
-package de.iteratec.minesweeper.gui;
+package de.iteratec.minesweeper.ngui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -48,15 +48,16 @@ public class Main extends Application {
         primaryStage.setTitle("Minesweeper");
         primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("iteratec.png")));
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(450);
+        primaryStage.setMinWidth(NConstants.MENU_WIDTH);
         primaryStage.show();
         return primaryStage;
     }
 
     private Scene createScene() throws IOException {
-        final URL resource = getClass().getClassLoader().getResource("main_window.fxml");
+        final URL resource = getClass().getClassLoader().getResource("ngui_main.fxml");
+
         final Parent root = FXMLLoader.load(resource);
-        final Scene scene = new Scene(root, 450, 200);
+        final Scene scene = new Scene(root, NConstants.MENU_WIDTH, NConstants.MENU_HEIGHT);
         scene.getStylesheets().add("minesweeper.css");
         return scene;
     }

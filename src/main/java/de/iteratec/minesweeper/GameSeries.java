@@ -19,14 +19,15 @@
 
 package de.iteratec.minesweeper;
 
+import de.iteratec.minesweeper.api.Board;
+import de.iteratec.minesweeper.api.Player;
+import de.iteratec.minesweeper.board.RandomBoard;
+import de.iteratec.minesweeper.ngui.NNewGameSeriesListener;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.iteratec.minesweeper.api.Board;
-import de.iteratec.minesweeper.api.Player;
-import de.iteratec.minesweeper.board.RandomBoard;
 
 /**
  * This class represents a series of games of Minesweeper.
@@ -34,6 +35,7 @@ import de.iteratec.minesweeper.board.RandomBoard;
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */
 public class GameSeries {
+
 
     /**
      * This class collects the game statistics.
@@ -84,6 +86,10 @@ public class GameSeries {
      * The field <tt>infos</tt> contains the statistics.
      */
     private List<GameInfo> infos = new ArrayList<>();
+
+    private NNewGameSeriesListener gameSeriesListener;
+
+    private boolean stopped = false;
 
     /**
      * Creates a new object.
@@ -166,6 +172,27 @@ public class GameSeries {
     }
 
     /**
+     * Sets the listener.
+     *
+     * @param gameSeriesListener
+     */
+    public void setGameSeriesListener(NNewGameSeriesListener gameSeriesListener) {
+        this.gameSeriesListener = gameSeriesListener;
+    }
+
+    /**
+     * Stopps a running series.
+     * @param stopped
+     */
+    public void setStopped(boolean stopped) {
+        this.stopped = stopped;
+    }
+
+    public boolean isStopped() {
+        return stopped;
+    }
+
+    /**
      * Play some games.
      *
      * @param number the number of rounds
@@ -174,9 +201,10 @@ public class GameSeries {
      */
     public GameSeries run(int number) {
 
-        while (number-- > 0) {
+        while (number-- > 0 && !stopped) {
 
             Game game = new Game();
+            notifyNewGameInSeries(game);
             long time = System.nanoTime();
             game.play(player);
             time = System.nanoTime() - time;
@@ -185,7 +213,21 @@ public class GameSeries {
             infos.add(new GameInfo(time, game.isWon(), board.getWidth(),
                 board.getHeight(), board.getBombs(), game.getMoves()));
         }
+        notifGameSeriesFinished();
+        setStopped(true);
         return this;
+    }
+
+    private void notifGameSeriesFinished() {
+        if (gameSeriesListener != null) {
+            gameSeriesListener.onGameSeriesFinished();
+        }
+    }
+
+    private void notifyNewGameInSeries(Game game) {
+        if (gameSeriesListener != null) {
+            gameSeriesListener.onNewGameInSeries(game);
+        }
     }
 
     /**

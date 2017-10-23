@@ -26,6 +26,6 @@ dependencies {
 }
 
 task(runMain, dependsOn: 'classes', type: JavaExec) {
-    main = 'de.iteratec.minesweeper.gui.Main'
+    main = 'de.iteratec.minesweeper.ngui.Main'
     classpath = sourceSets.main.runtimeClasspath
 }

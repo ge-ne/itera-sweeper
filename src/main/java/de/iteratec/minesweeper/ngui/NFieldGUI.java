@@ -1,4 +1,4 @@
-package de.iteratec.minesweeper.gui;
+package de.iteratec.minesweeper.ngui;
 
 import de.iteratec.minesweeper.api.Board;
 import javafx.application.Platform;
@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Patrick Hock
  */
-public class FieldGUI extends HBox {
+public class NFieldGUI extends HBox {
 
     private static final int DURATION_HUMAN_CLICK_ANIMATION_MILLIS = 400;
 
@@ -31,17 +31,21 @@ public class FieldGUI extends HBox {
 
     private boolean isRevealed = false;
 
-    FieldGUI(int x, int y) {
+    NFieldGUI(int x, int y) {
         this.x = x;
         this.y = y;
         button = new Button();
-        button.prefWidthProperty().bind(widthProperty());
-        button.prefHeightProperty().bind(heightProperty());
+        button.setMaxHeight(NConstants.FIELD_DIMENSION);
+        button.setMaxWidth(NConstants.FIELD_DIMENSION);
+        button.setMinHeight(NConstants.FIELD_DIMENSION);
+        button.setMinWidth(NConstants.FIELD_DIMENSION);
+/*        button.prefWidthProperty().bind(widthProperty());
+        button.prefHeightProperty().bind(heightProperty());*/
         button.setOnMouseClicked(this::mouseClicked);
         getChildren().add(button);
         setAlignment(Pos.CENTER);
-        setMaxSize(30, 30);
-        setMinSize(30, 30);
+        setMaxSize(NConstants.FIELD_DIMENSION, NConstants.FIELD_DIMENSION);
+        setMinSize(NConstants.FIELD_DIMENSION, NConstants.FIELD_DIMENSION);
     }
 
     /**
@@ -198,7 +202,7 @@ public class FieldGUI extends HBox {
         return "Field " + x + "/" + y + "(revealed:" + isRevealed() + ")";
     }
 
-    interface FieldClickListener {
+    public interface FieldClickListener {
         void onLeftClick(int x, int y);
     }
 

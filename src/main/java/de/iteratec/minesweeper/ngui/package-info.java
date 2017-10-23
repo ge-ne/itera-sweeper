@@ -3,4 +3,4 @@
  *
  * @author Patrick Hock
  */
-package de.iteratec.minesweeper.gui;
+package de.iteratec.minesweeper.ngui;

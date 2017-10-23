@@ -19,6 +19,8 @@
 
 package de.iteratec.minesweeper.board;
 
+import de.iteratec.minesweeper.ngui.NRandomBoardSettings;
+
 import java.util.Random;
 
 /**
@@ -33,6 +35,7 @@ public class RandomBoard extends BaseBoard {
      * used.
      */
     private static Random random = new Random();
+    public static final int MIN_BOARD_DIMENSION = 3;
 
 
     /**
@@ -53,13 +56,21 @@ public class RandomBoard extends BaseBoard {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new object and fill 10% of the board with bombs. The width is
-     * randomly selected between 3 and 99. The height is randomly selected
-     * between 3 and 99.
+     * Creates a new object and fill 10% of the board with bombs. The dimension
+     * of the board is randomly selected with maximum width and height from
+     * {@link NRandomBoardSettings}
      */
     public RandomBoard() {
+        this(MIN_BOARD_DIMENSION + random.nextInt(getWidthRandInput()),
+                MIN_BOARD_DIMENSION + random.nextInt(getHeightRandInput()));
+    }
 
-        this(3 + random.nextInt(96), 3 + random.nextInt(96));
+    private static int getHeightRandInput() {
+        return NRandomBoardSettings.getMaxHeight() - MIN_BOARD_DIMENSION;
+    }
+
+    private static int getWidthRandInput() {
+        return NRandomBoardSettings.getMaxWidth() - MIN_BOARD_DIMENSION;
     }
 
     /**
