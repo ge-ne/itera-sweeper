@@ -3,6 +3,7 @@ package de.iteratec.minesweeper.ngui;
 import de.iteratec.minesweeper.Game;
 import de.iteratec.minesweeper.MoveObserver;
 import de.iteratec.minesweeper.api.Board;
+import de.iteratec.minesweeper.util.Config;
 import javafx.application.Platform;
 
 /**
@@ -33,7 +34,7 @@ public class NBoardGUIUpdater implements Game.GameObserver, MoveObserver {
 
     @Override
     public void onGameFinished(Game game) {
-        wait(NConstants.DURATION_WAIT_AFTER_GAME_IN_MILLIS);
+        wait(Config.getDurationWaitAfterGameInMillis());
     }
 
     @Override

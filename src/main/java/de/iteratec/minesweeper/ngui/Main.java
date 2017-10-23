@@ -45,7 +45,7 @@ public class Main extends Application {
     }
 
     private Stage createStage(Stage primaryStage, Scene scene) {
-        primaryStage.setTitle("Minesweeper");
+        primaryStage.setTitle("iterasweeper");
         primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("iteratec.png")));
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(NConstants.MENU_WIDTH);

@@ -1,6 +1,7 @@
 package de.iteratec.minesweeper.ngui;
 
 import de.iteratec.minesweeper.api.Board;
+import de.iteratec.minesweeper.util.Config;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -35,17 +36,17 @@ public class NFieldGUI extends HBox {
         this.x = x;
         this.y = y;
         button = new Button();
-        button.setMaxHeight(NConstants.FIELD_DIMENSION);
-        button.setMaxWidth(NConstants.FIELD_DIMENSION);
-        button.setMinHeight(NConstants.FIELD_DIMENSION);
-        button.setMinWidth(NConstants.FIELD_DIMENSION);
+        button.setMaxHeight(Config.getFieldDimension());
+        button.setMaxWidth(Config.getFieldDimension());
+        button.setMinHeight(Config.getFieldDimension());
+        button.setMinWidth(Config.getFieldDimension());
 /*        button.prefWidthProperty().bind(widthProperty());
         button.prefHeightProperty().bind(heightProperty());*/
         button.setOnMouseClicked(this::mouseClicked);
         getChildren().add(button);
         setAlignment(Pos.CENTER);
-        setMaxSize(NConstants.FIELD_DIMENSION, NConstants.FIELD_DIMENSION);
-        setMinSize(NConstants.FIELD_DIMENSION, NConstants.FIELD_DIMENSION);
+        setMaxSize(Config.getFieldDimension(), Config.getFieldDimension());
+        setMinSize(Config.getFieldDimension(), Config.getFieldDimension());
     }
 
     /**

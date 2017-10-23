@@ -4,7 +4,7 @@ import de.iteratec.minesweeper.Game;
 import de.iteratec.minesweeper.MoveObserver;
 import de.iteratec.minesweeper.api.Board;
 import de.iteratec.minesweeper.api.Player;
-import de.iteratec.minesweeper.players.HumanPlayer;
+import de.iteratec.minesweeper.util.Config;
 
 /**
  * @author Patrick Hock
@@ -14,6 +14,7 @@ public class NBoardGUIController implements Game.GameObserver, MoveObserver {
     private final NBoardGUI boardGUI;
     private NBoardGUIUpdater nBoardGUIUpdater;
     private Player player;
+    private boolean delayMove;
 
     private NBoardGUIController(NBoardGUI boardGUI) {
         this.boardGUI = boardGUI;
@@ -23,14 +24,17 @@ public class NBoardGUIController implements Game.GameObserver, MoveObserver {
         return new NBoardGUIController(boardGUI);
     }
 
+    private NFieldGUI.FieldClickListener fieldClickListener;
+
     @Override
     public void onGameStarted(Game game) {
         nBoardGUIUpdater = new NBoardGUIUpdater();
         nBoardGUIUpdater.setBoardGUI(boardGUI);
-        if (isHumanPlayer()) {
-            boardGUI.addFieldClickListener((HumanPlayer) player);
-        } else {
-            nBoardGUIUpdater.setDurationWaitAfterMoveInMillis(NConstants.DURATION_WAIT_AFTER_MOVE_IN_MILLIS);
+        if (fieldClickListener != null) {
+            boardGUI.addFieldClickListener(fieldClickListener);
+        }
+        if (delayMove) {
+            nBoardGUIUpdater.setDurationWaitAfterMoveInMillis(Config.getDurationWaitAfterMoveInMillis());
         }
         nBoardGUIUpdater.onGameStarted(game);
     }
@@ -45,11 +49,11 @@ public class NBoardGUIController implements Game.GameObserver, MoveObserver {
         nBoardGUIUpdater.observeMove(numberOfMoves, board, x, y);
     }
 
-    private boolean isHumanPlayer() {
-        return this.player != null && this.player.getClass().equals(HumanPlayer.class);
+    void setDelayAtMove(boolean delayMove) {
+        this.delayMove = delayMove;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    void setFieldClickListener(NFieldGUI.FieldClickListener fieldClickListener) {
+        this.fieldClickListener = fieldClickListener;
     }
 }

@@ -132,7 +132,6 @@ public class Game {
                 }
                 if (lost) {
                     won = false;
-                    notifyGameFinished();
                     return this;
                 }
             }
@@ -141,9 +140,9 @@ public class Game {
         } catch (Exception e) {
             won = false;
         } finally {
-            player.terminateGame(won);
+            player.terminateGame();
+            notifyGameFinished();
         }
-        notifyGameFinished();
         return this;
     }
 

@@ -2,12 +2,14 @@ package de.iteratec.minesweeper.ngui;
 
 import de.iteratec.minesweeper.Game;
 import de.iteratec.minesweeper.api.Player;
+import de.iteratec.minesweeper.util.Config;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +18,10 @@ import java.util.ResourceBundle;
  * @author Patrick Hock
  */
 public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayButtonController.PlayButtonListener {
+
+    @FXML
+    public ImageView logoImageView;
+    private NLogoImageViewController logoImageViewController;
 
     @FXML
     private Button playButton;
@@ -50,27 +56,34 @@ public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayBut
 
     private NGameSeriesController gameSeriesController;
 
+    private NPlayerController playerController;
+
 
     public NGUIMain() {
-        Main.getInstance().registerApplicationStopListener(this::stopGameSeries);
+        Main.getInstance().registerApplicationStopListener(
+                () -> gameSeriesController.stopGameSeries());
     }
 
     @FXML
     public void startNewGameSeries() {
 
         final int seed = Integer.parseInt(this.seedTextField.getText());
-        final Player selectedPlayer = this.playersComboBoxController.getSelectedPlayer();
         final int runs = this.runsTextFieldController.getRuns();
+        final Player player = this.playersComboBoxController.getSelectedPlayer();
 
-        boardGUIController.setPlayer(selectedPlayer);
-        gameSeriesController.setPlayer(selectedPlayer);
+        playerController.setPlayer(player);
+
+        boardGUIController.setDelayAtMove(!playerController.isHumanPlayer());
+        boardGUIController.setFieldClickListener(playerController);
+
+        statsLabelController.setPlayerName(player.getClass().getSimpleName());
+
+        gameSeriesController.setPlayer(player);
         gameSeriesController.setSeed(seed);
         gameSeriesController.setRuns(runs);
         gameSeriesController.startNewGameSeries();
-    }
 
-    private void stopGameSeries() {
-        gameSeriesController.stopGameSeries();
+
     }
 
     @Override
@@ -85,29 +98,35 @@ public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayBut
         playButtonController.setButtonListener(this);
         gameSeriesController = NGameSeriesController.create();
         gameSeriesController.setGameSeriesListener(this);
+        playerController = NPlayerController.create();
+        logoImageViewController = NLogoImageViewController.create(logoImageView);
     }
 
     @Override
     public void onNewGameInSeries(Game game) {
         game.addGameObserver(mainWindowController);
+        game.addGameObserver(logoImageViewController);
         game.addGameObserver(statsLabelController);
         game.addGameObserver(boardGUIController);
         game.setMoveObserver(boardGUIController);
+        game.addGameObserver(playButtonController);
     }
 
     @Override
     public void onGameSeriesFinished() {
-        this.playButtonController.seriesHasFinishedOrStopped();
+        this.playButtonController.setEnabled(true);
+        this.playButtonController.setTextStop();
     }
 
     @Override
     public void onPlayButtonClicked() {
         if (gameSeriesController.isGameSeriesRunning()) {
-            this.stopGameSeries();
-            this.playButtonController.seriesHasFinishedOrStopped();
+            this.playButtonController.setEnabled(false);
+            this.gameSeriesController.stopGameSeries();
+            this.playerController.onGameFinished();
         } else {
             this.startNewGameSeries();
-            this.playButtonController.seriesHasBegun();
+            this.playButtonController.setTextPlay();
         }
     }
 }

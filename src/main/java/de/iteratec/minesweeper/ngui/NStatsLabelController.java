@@ -4,15 +4,19 @@ import de.iteratec.minesweeper.Game;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Patrick Hock
  */
 public class NStatsLabelController implements Game.GameObserver {
 
-    private int gamesWonCount = 0;
-    private int gamesCount = 0;
+    Map<String, Stats> playerStats = new HashMap<>();
 
     private final Label statsLabel;
+
+    private String currentPlayer = null;
 
     private NStatsLabelController(Label statsLabel) {
         this.statsLabel = statsLabel;
@@ -29,14 +33,30 @@ public class NStatsLabelController implements Game.GameObserver {
 
     @Override
     public void onGameFinished(Game game) {
-        gamesCount++;
+        Stats stats = playerStats.get(currentPlayer);
+        stats.played++;
         if (game.isWon()) {
-            gamesWonCount++;
+            stats.won++;
         }
         updateLabel();
     }
 
     private void updateLabel() {
-        Platform.runLater(() -> statsLabel.setText("Won " + gamesWonCount + " / " + gamesCount));
+        Platform.runLater(() -> {
+            Stats stats = playerStats.get(currentPlayer);
+            statsLabel.setText("Won " + stats.won + " / " + stats.played);
+        });
+    }
+
+    public void setPlayerName(String simpleName) {
+        this.currentPlayer = simpleName;
+        if (!playerStats.containsKey(simpleName)) {
+            playerStats.put(simpleName, new Stats());
+        }
+    }
+
+    private class Stats {
+        int played = 0;
+        int won = 0;
     }
 }

@@ -1,6 +1,7 @@
 package de.iteratec.minesweeper.ngui;
 
 import de.iteratec.minesweeper.api.Board;
+import de.iteratec.minesweeper.util.Config;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -64,7 +65,7 @@ public class NBoardGUI extends VBox implements NFieldGUI.FieldClickListener {
      * @param y the y position of the field on the board which was clicked
      */
     void animateClick(int x, int y) {
-        animateClick(x, y, NConstants.DURATION_CLICK_ANIMATION_IN_MILLIS);
+        animateClick(x, y, Config.getDurationClickAnimationInMillis());
     }
 
     /**

@@ -24,7 +24,7 @@ public class HumanPlayer implements Player, NFieldGUI.FieldClickListener {
     }
 
     @Override
-    public void terminateGame(boolean won) {
+    public void terminateGame() {
         setTerminated(true);
     }
 
