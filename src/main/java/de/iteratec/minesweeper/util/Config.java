@@ -50,6 +50,6 @@ public class Config {
 
     private static void loadProperties() throws IOException {
         properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/application.properties"));
+        properties.load(new FileInputStream("application.properties"));
     }
 }

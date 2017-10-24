@@ -4,7 +4,6 @@ import de.iteratec.minesweeper.api.Board;
 
 /**
  * @author Patrick Hock
- * @created 22.10.2017
  */
 public class BoardUtils {
 
