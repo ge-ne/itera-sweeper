@@ -228,7 +228,7 @@ public class RandomBoardTest {
 
         RandomBoard board = new RandomBoard(1, 1, 0);
         board.set(0, 0);
-        assertEquals("|.|\n", board.toString());
+        assertEquals("|0|\n", board.toString());
     }
 
     /**
