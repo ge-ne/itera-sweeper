@@ -6,8 +6,8 @@ package de.iteratec.minesweeper.ngui;
  */
 public class NRandomBoardSettings {
 
-    private static final int DEFAULT_MAX_WIDTH = 30;
-    private static final int DEFAULT_MAX_HEIGHT = 30;
+    private static final int DEFAULT_MAX_WIDTH = 99;
+    private static final int DEFAULT_MAX_HEIGHT = 99;
 
     public static int getMaxWidth() {
         try {
