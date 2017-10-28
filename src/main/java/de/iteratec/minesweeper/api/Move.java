@@ -20,39 +20,47 @@
 package de.iteratec.minesweeper.api;
 
 /**
- * This interface describes the methods of an automatic player of the game of
- * Minesweeper.
+ * This class represents a coordinate pair in twodimensional space.
  *
  * @author <a href="mailto:Gerd.Neugebauer@iteratec.de">Gerd Neugebauer</a>
  */
-public interface Player {
+public class Move {
+
+    private int x;
+
+    private int y;
 
     /**
-     * This method is called once at the beginning of a game. The default
-     * implementation simply does nothing.
+     * Creates a new object.
      *
-     * @param board the board
+     * @param x the x coordinate
+     * @param y the y coordinate
      */
-    default void startGame(Board board) {
+    public Move(int x, int y) {
+
+        this.x = x;
+        this.y = y;
 
     }
 
     /**
-     * This method is called once at the end of a game. It is invoked in any
-     * case being it won or lost. The default implementation simply does
-     * nothing.
+     * Getter for x.
+     *
+     * @return the x coordinate
      */
-    default void terminateGame() {
+    public int getX() {
 
+        return x;
     }
 
     /**
-     * This method is invoked to request a move from the player.
+     * Getter for y.
      *
-     * @param board the board
-     * 
-     * @return the move, i.e. the coordinates on the board to probe.
-     *         Alternatively <code>null</code> can be returned to surrender
+     * @return the y coordinate
      */
-    Move move(Board board);
+    public int getY() {
+
+        return y;
+    }
+
 }

@@ -19,10 +19,11 @@
 
 package de.iteratec.minesweeper.players;
 
-import de.iteratec.minesweeper.api.Board;
-import de.iteratec.minesweeper.api.Player;
-
 import java.util.Random;
+
+import de.iteratec.minesweeper.api.Board;
+import de.iteratec.minesweeper.api.Move;
+import de.iteratec.minesweeper.api.Player;
 
 /**
  * This Minesweeper player randomly chooses a cell for the next move.
@@ -59,9 +60,9 @@ public class RandomPlayer implements Player {
      * @see de.iteratec.minesweeper.api.Player#move(de.iteratec.minesweeper.api.Board)
      */
     @Override
-    public int[] move(Board board) {
+    public Move move(Board board) {
 
-        return new int[]{random.nextInt(board.getWidth()),
-                random.nextInt(board.getHeight())};
+        return new Move(random.nextInt(board.getWidth()),
+            random.nextInt(board.getHeight()));
     }
 }

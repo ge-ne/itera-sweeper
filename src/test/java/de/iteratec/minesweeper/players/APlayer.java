@@ -20,6 +20,7 @@
 package de.iteratec.minesweeper.players;
 
 import de.iteratec.minesweeper.api.Board;
+import de.iteratec.minesweeper.api.Move;
 import de.iteratec.minesweeper.api.Player;
 
 /**
@@ -35,7 +36,7 @@ public class APlayer implements Player {
      * @see de.iteratec.minesweeper.api.Player#move(de.iteratec.minesweeper.api.Board)
      */
     @Override
-    public int[] move(Board board) {
+    public Move move(Board board) {
 
         return null;
     }

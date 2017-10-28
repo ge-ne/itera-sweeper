@@ -19,14 +19,15 @@
 
 package de.iteratec.minesweeper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.iteratec.minesweeper.api.Board;
+import de.iteratec.minesweeper.api.Move;
 import de.iteratec.minesweeper.api.Player;
 import de.iteratec.minesweeper.board.BoardFactory;
 import de.iteratec.minesweeper.board.ModifiableBoard;
 import de.iteratec.minesweeper.board.RandomBoard;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is a driver for a game of Minesweeper. A new board is allocated
@@ -58,9 +59,7 @@ public class Game {
      */
     private MoveObserver moveObserver = null;
 
-
     private List<GameObserver> gameObservers = new ArrayList<>();
-
 
     /**
      * The field <tt>boardFactory</tt> contains the factory to produce a new
@@ -124,11 +123,13 @@ public class Game {
         notifyGameStarted();
         try {
             while (!board.isCompleted()) {
-                int[] move = player.move(board);
+                Move move = player.move(board);
                 moves++;
-                boolean lost = move == null || !board.set(move[0], move[1]);
+                boolean lost =
+                        move == null || !board.set(move.getX(), move.getY());
                 if (moveObserver != null && move != null) {
-                    moveObserver.observeMove(moves, board, move[0], move[1]);
+                    moveObserver.observeMove(moves, board, move.getX(),
+                        move.getY());
                 }
                 if (lost) {
                     won = false;
@@ -163,29 +164,34 @@ public class Game {
      * @param moveObserver the move observer to set
      */
     public Game setMoveObserver(MoveObserver moveObserver) {
+
         this.moveObserver = moveObserver;
         return this;
     }
 
     public void addGameObserver(GameObserver gameObserver) {
+
         this.gameObservers.add(gameObserver);
     }
 
     private void notifyGameFinished() {
+
         for (GameObserver gameObserver : gameObservers) {
             gameObserver.onGameFinished(this);
         }
     }
 
-
     private void notifyGameStarted() {
+
         for (GameObserver gameObserver : gameObservers) {
             gameObserver.onGameStarted(this);
         }
     }
 
     public interface GameObserver {
+
         void onGameStarted(Game game);
+
         void onGameFinished(Game game);
     }
 

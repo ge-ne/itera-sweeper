@@ -1,9 +1,11 @@
+
 package de.iteratec.minesweeper.players;
 
-import de.iteratec.minesweeper.api.Board;
-import de.iteratec.minesweeper.api.Player;
-
 import static de.iteratec.minesweeper.board.BoardUtils.isFree;
+
+import de.iteratec.minesweeper.api.Board;
+import de.iteratec.minesweeper.api.Move;
+import de.iteratec.minesweeper.api.Player;
 
 /**
  * @author Patrick Hock
@@ -11,10 +13,12 @@ import static de.iteratec.minesweeper.board.BoardUtils.isFree;
  */
 @SuppressWarnings("unused")
 public class LeftTopToRightBottomPlayer implements Player {
+
     @Override
-    public int[] move(Board board) {
-        int[] click = new int[] {0, 0};
-        while(!isFree(board, click)) {
+    public Move move(Board board) {
+
+        int[] click = new int[]{0, 0};
+        while (!isFree(board, click)) {
             int x = click[0] + 1;
             int y = click[1];
             if (x >= board.getWidth()) {
@@ -23,7 +27,7 @@ public class LeftTopToRightBottomPlayer implements Player {
             }
             click = new int[]{x, y};
         }
-        return click;
+        return new Move(click[0], click[1]);
     }
 
 }
