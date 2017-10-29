@@ -1,8 +1,11 @@
+
 package de.iteratec.minesweeper.ngui;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import de.iteratec.minesweeper.Game;
 import de.iteratec.minesweeper.api.Player;
-import de.iteratec.minesweeper.util.Config;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,24 +14,28 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * @author Patrick Hock
  */
-public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayButtonController.PlayButtonListener {
+public class NGUIMain
+        implements
+            Initializable,
+            NNewGameSeriesListener,
+            NPlayButtonController.PlayButtonListener {
 
     @FXML
     public ImageView logoImageView;
+
     private NLogoImageViewController logoImageViewController;
 
     @FXML
     private Button playButton;
+
     private NPlayButtonController playButtonController;
 
     @FXML
     private NBoardGUI boardGUI;
+
     private NBoardGUIController boardGUIController;
 
     @FXML
@@ -36,14 +43,17 @@ public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayBut
 
     @FXML
     private Label statsLabel;
+
     private NStatsLabelController statsLabelController;
 
     @FXML
     private ComboBox playersComboBox;
+
     private NPlayersComboBoxController playersComboBoxController;
 
     @FXML
     private TextField runsTextField;
+
     private NRunsTextFieldController runsTextFieldController;
 
     @FXML
@@ -58,10 +68,9 @@ public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayBut
 
     private NPlayerController playerController;
 
-
     public NGUIMain() {
         Main.getInstance().registerApplicationStopListener(
-                () -> gameSeriesController.stopGameSeries());
+            () -> gameSeriesController.stopGameSeries());
     }
 
     @FXML
@@ -69,7 +78,8 @@ public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayBut
 
         final int seed = Integer.parseInt(this.seedTextField.getText());
         final int runs = this.runsTextFieldController.getRuns();
-        final Player player = this.playersComboBoxController.getSelectedPlayer();
+        final Player player =
+                this.playersComboBoxController.getSelectedPlayer();
 
         playerController.setPlayer(player);
 
@@ -83,27 +93,32 @@ public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayBut
         gameSeriesController.setRuns(runs);
         gameSeriesController.startNewGameSeries();
 
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playersComboBoxController = NPlayersComboBoxController.create(playersComboBox);
+
+        playersComboBoxController =
+                NPlayersComboBoxController.create(playersComboBox);
         statsLabelController = NStatsLabelController.create(statsLabel);
         boardGUIController = NBoardGUIController.create(boardGUI);
         mainWindowController = NMainWindowController.create();
-        runsTextFieldController = NRunsTextFieldController.create(runsTextField);
-        NBoardDimensionTextFieldsController.create(boardDimensionXTextField, boardDimensionYTextField);
+        runsTextFieldController =
+                NRunsTextFieldController.create(runsTextField);
+        NBoardDimensionTextFieldsController.create(boardDimensionXTextField,
+            boardDimensionYTextField);
         playButtonController = NPlayButtonController.create(playButton);
         playButtonController.setButtonListener(this);
         gameSeriesController = NGameSeriesController.create();
         gameSeriesController.setGameSeriesListener(this);
         playerController = NPlayerController.create();
-        logoImageViewController = NLogoImageViewController.create(logoImageView);
+        logoImageViewController =
+                NLogoImageViewController.create(logoImageView);
     }
 
     @Override
     public void onNewGameInSeries(Game game) {
+
         game.addGameObserver(mainWindowController);
         game.addGameObserver(logoImageViewController);
         game.addGameObserver(statsLabelController);
@@ -114,12 +129,14 @@ public class NGUIMain implements Initializable, NNewGameSeriesListener, NPlayBut
 
     @Override
     public void onGameSeriesFinished() {
+
         this.playButtonController.setEnabled(true);
         this.playButtonController.setTextStop();
     }
 
     @Override
     public void onPlayButtonClicked() {
+
         if (gameSeriesController.isGameSeriesRunning()) {
             this.playButtonController.setEnabled(false);
             this.gameSeriesController.stopGameSeries();
